@@ -8,7 +8,7 @@ class StylesText extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        fontSize: 50,
+        fontSize: 20,
         color: Color.fromARGB(255, 217, 216, 209),
       ),
     );
