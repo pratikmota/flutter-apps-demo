@@ -15,24 +15,22 @@ class GradiantContainer extends StatefulWidget {
 }
 
 class _GradiantContainerState extends State<GradiantContainer> {
-  Widget? activeScreen;
-
-  @override
-  void initState() {
-    activeScreen = StartScreen(switchScreen);
-    super.initState();
-  }
-
+  var activeScreen = "first-screen";
   void switchScreen() {
     setState(
       () {
-        activeScreen = const QuestionScreen();
+        activeScreen = "question-screen";
       },
     );
   }
 
   @override
   Widget build(context) {
+    Widget finalScreen = StartScreen(switchScreen);
+
+    if (activeScreen == "question-screen") {
+      finalScreen = const QuestionScreen();
+    }
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -41,7 +39,7 @@ class _GradiantContainerState extends State<GradiantContainer> {
           end: endAlignment,
         ),
       ),
-      child: activeScreen,
+      child: finalScreen,
     );
   }
 }
