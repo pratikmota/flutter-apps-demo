@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/start_screen.dart';
 import 'package:quiz_app/question_screen.dart';
+import 'package:quiz_app/question_screen.dart';
 
 const startAlignment = Alignment.topLeft;
 const endAlignment = Alignment.bottomCenter;
@@ -15,6 +16,7 @@ class GradiantContainer extends StatefulWidget {
 }
 
 class _GradiantContainerState extends State<GradiantContainer> {
+  final List<String> selectedAnswers = [];
   var activeScreen = "first-screen";
   void switchScreen() {
     setState(
@@ -24,12 +26,18 @@ class _GradiantContainerState extends State<GradiantContainer> {
     );
   }
 
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+  }
+
   @override
   Widget build(context) {
-    Widget finalScreen = StartScreen(switchScreen);
+    Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == "question-screen") {
-      finalScreen = const QuestionScreen();
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      );
     }
     return Container(
       decoration: BoxDecoration(
@@ -39,7 +47,7 @@ class _GradiantContainerState extends State<GradiantContainer> {
           end: endAlignment,
         ),
       ),
-      child: finalScreen,
+      child: screenWidget,
     );
   }
 }
